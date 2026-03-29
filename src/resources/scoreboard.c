@@ -24,7 +24,7 @@ const char *australia_batsmen[11] = {
     "Travis Head",      
     "Steve Smith",     
     "Glenn Maxwell",   
-    "Marnus Labuschagne"
+    "Marnus Labuschagne",
     "Marcus Stoinis",  
     "Matthew Wade",    
     "Pat Cummins",     

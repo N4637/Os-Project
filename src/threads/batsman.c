@@ -172,9 +172,8 @@ void *batsman_thread(void *arg)
             rec->batting_team_id = batting_team;
         }
 
-        log_csv_event(event_name(ball_event));
 
-        printf("  Score: %d/%d\n", get_score(), get_wickets());
+        printf("Score: %d/%d\n", get_score(), get_wickets());
 
         ball_ready = 0;
         pthread_cond_broadcast(&ball_cond);

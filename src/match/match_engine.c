@@ -25,10 +25,20 @@ void start_match(int overs)
 
     while (1)
     {
-        usleep(80000);   
+        usleep(80000);
 
         pthread_mutex_lock(&pitch_mutex);
 
+        if (current_innings == 2 && global_score >= innings_score[0] + 1)
+        {
+            printf("\n  TARGET ACHIEVED!\n");
+            printf("  Score: %d/%d\n\n", global_score, wickets);
+
+            match_running = 0;
+            pthread_cond_broadcast(&ball_cond);
+            pthread_mutex_unlock(&pitch_mutex);
+            return;
+        }
         if (wickets >= 10)
         {
             printf("\n  ALL OUT for %d    \n", global_score);
@@ -53,7 +63,7 @@ void start_match(int overs)
                    bowler_wickets[current_bowler]);
             printf("\n\n");
 
-            if (current_over >= overs || (current_innings == 2 && global_score >= innings_score[0] + 1))
+            if (current_over >= overs)
             {
                 printf("   MATCH FINISHED   \n");
                 printf("    Final Score: %d/%d in %d overs\n\n", global_score, wickets, overs);
@@ -63,11 +73,26 @@ void start_match(int overs)
                 return;
             }
 
-            if (current_over == overs - 1)
+            if (current_innings == 2)
+            {
+                int target = innings_score[0] + 1;
+                int runs_required = target - global_score;
+
+                if (runs_required <= 10 && match_intensity != INTENSITY_HIGH)
+                {
+                    match_intensity = INTENSITY_HIGH;
+
+                    printf("\nOnly %d runs needed.\n", runs_required);
+                    printf("THIRD UMPIRE: Match intensity HIGH.\n");
+                    printf("Captain: Priority scheduler activated.\n\n");
+                }
+            }
+
+            if (current_over == overs - 1 && match_intensity != INTENSITY_HIGH)
             {
                 match_intensity = INTENSITY_HIGH;
-                printf("[THIRD UMPIRE] Last over! Match intensity HIGH.\n");
-                printf("[THIRD UMPIRE] Priority scheduler activated.\n\n");
+                printf("THIRD UMPIRE:Last over! Match intensity HIGH.\n");
+                printf("Captain: Priority scheduler activated.\n\n");
             }
 
             scheduler_next();

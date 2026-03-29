@@ -23,9 +23,9 @@ int generate_ball_event(void)
 
     if (match_intensity == INTENSITY_HIGH)
     {
-        p_dot    = 20;  p_single = 18;  p_double =  8;
-        p_four   = 16;  p_six    = 12;  p_air    =  8;
-        p_wide   =  8;  p_wicket = 10;
+        p_dot    = 12;  p_single = 8;  p_double =  8;
+        p_four   = 20;  p_six    = 20;  p_air    =  8;
+        p_wide   =  8;  p_wicket = 16;
     }
     else
     {

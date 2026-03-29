@@ -35,7 +35,7 @@ void *bowler_thread(void *arg)
             break;
         }
 
-        printf("\n[Over %d  Ball %d]  %s runs in...\n",
+        printf("\n%d.%d  %s running up...\n",
                current_over, current_ball + 1,
                (current_bowler < 5 && active_bowlers) ? active_bowlers[current_bowler] : "Bowler");
 

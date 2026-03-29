@@ -21,7 +21,7 @@
 #include "../include/deadlock/deadlock.h"
 #include "../include/match/events.h"
 
-#define NUM_OVERS 5
+#define NUM_OVERS 10
 #define NUM_FIELDERS 10
 
 static void reset_globals(void)
@@ -75,7 +75,6 @@ static void run_innings(scheduler_type stype,
     init_semaphores();
     init_condition_vars();
     scheduler_init(stype);
-    init_data_logger();
 
     pthread_t bowler;
     pthread_t batsmen[2];
@@ -108,7 +107,6 @@ static void run_innings(scheduler_type stype,
 
     write_gantt_csv();
     
-    close_data_logger();
     destroy_semaphores();
     destroy_condition_vars();
     destroy_mutexes();
@@ -191,6 +189,5 @@ int main(int argc, char *argv[])
     printf("\nDeadlock demo\n");
     simulate_run_out();
 
-    printf("\nSimulation complete. Run python3 gant_generator.py\n");
     return 0;
 }
