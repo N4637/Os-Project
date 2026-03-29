@@ -10,8 +10,8 @@ data/gantt_log.csv
 
 src/deadlock/
 include/deadlock/
-*deadlock*
-*Deadlock*
+deadlock
+Deadlock
 
 GANTT_CHART.md
 gant_generator.py
